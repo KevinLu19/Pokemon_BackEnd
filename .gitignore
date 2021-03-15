@@ -1,0 +1,8 @@
+./venv/*
+venv/
+
+task.txt
+src/pokedex.py
+*.sqlite3
+
+__pycache__/
