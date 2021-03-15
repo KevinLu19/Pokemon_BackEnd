@@ -1,4 +1,4 @@
-from main import app
+from main import app, PROJECT_ROOT_DIRECTORY
 from flask_sqlalchemy import SQLAlchemy
 
 import os
@@ -14,6 +14,7 @@ class PokemonDataBase(pokemon_database.Model):
     pokemon_name = pokemon_database.Column(pokemon_database.String(15))
     pokemon_sprite_image = pokemon_database.Column(pokemon_database.String(10))
 
+    # DANGEROUS METHOD. PROCEED WITH CAUTION!
     def clearing_tables_in_database(self):
         # Clearing Tables in database.
         meta = pokemon_database.metadata
@@ -33,7 +34,6 @@ class PokemonDataBase(pokemon_database.Model):
             print(poke_image_name)
             print ("------------")
 
-
 # Grabs pokemon's name from textfile and store them into a list to then place into databse.
 def grab_name_from_text_file():
 
@@ -50,10 +50,11 @@ def grab_name_from_text_file():
     return pokemon_names_from_text_file
 
 def grab_image_name_from_sprite_directory():
-    sprite_directory = "D:\Programming Workspace\PokemonGuessingGameBackEnd\sprites"
-    file_sprities = os.listdir(sprite_directory)
+    image_sprite_directory_path = os.path.join(PROJECT_ROOT_DIRECTORY, "sprites")
+    file_sprities = os.listdir(image_sprite_directory_path)
 
     # Sorting the directory in a nifty yet working fashion.
+    # Found this solution at https://stackoverflow.com/questions/33159106/sort-filenames-in-directory-in-ascending-order
     file_sprities.sort(key=lambda f: int(re.sub('\D', '', f)))
 
     return file_sprities
