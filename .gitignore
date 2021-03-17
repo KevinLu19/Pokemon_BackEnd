@@ -4,6 +4,6 @@ venv/
 task.txt
 src/pokedex.py
 *.sqlite3
-*.txt
+pokemon_names.txt
 
 __pycache__/
