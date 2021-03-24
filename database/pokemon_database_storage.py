@@ -1,13 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
-from config import app, api, pokemon_database, PROJECT_ROOT_DIRECTORY
+from Pokemon_resource_api import pokemon_database, PROJECT_ROOT_DIRECTORY, pokemon_schemas
 
 import os
 import re
-
-# app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-# app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///pokemon.sqlite3"
-
-# pokemon_database = SQLAlchemy(app)
 
 class PokemonDataBase(pokemon_database.Model):
     id = pokemon_database.Column(pokemon_database.Integer, primary_key=True)
@@ -26,11 +21,13 @@ class PokemonDataBase(pokemon_database.Model):
 
     # When doing name comparison to the database.
     # Take the given name from user and lower case it before doing the comparision with the database.
-    def check_user_guess_to_database(self, user_guessed_name: str):
-        user_guess_lower_cased = user_guessed_name.lower()
+    def check_user_guess_to_database(self, user_guessed_name: int):
+        # user_guess_lower_cased = user_guessed_name.lower()
 
-        return pokemon_database.session.query(PokemonDataBase.pokemon_name).filter_by(name = user_guess_lower_cased).first() is not None
-
+        # https://stackoverflow.com/questions/32938475/flask-sqlalchemy-check-if-row-exists-in-table
+        # The filter_by() parameter uses the column table's name to sift through what data you are trying to query out.
+        # This returns a boolean if left with "is not None" at the end.
+        return pokemon_database.session.query(PokemonDataBase.pokemon_name).filter_by(id = user_guessed_name).first()
 
     # Temporary, to check if connection is still connected.
     def print_items_in_database(self):

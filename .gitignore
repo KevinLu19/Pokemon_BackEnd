@@ -5,5 +5,6 @@ task.txt
 src/pokedex.py
 *.sqlite3
 pokemon_names.txt
+config.py
 
 __pycache__/

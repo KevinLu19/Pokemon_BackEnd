@@ -2,6 +2,7 @@ from flask import Flask
 from flask_restful import Api
 from flask_sqlalchemy import SQLAlchemy
 
+import database.pokemon_database_storage as db
 import os
 
 # creating flask app instance
@@ -20,3 +21,7 @@ pokemon_database = SQLAlchemy(app)
 
 if __name__ == "__main__":
     app.run(debug=True)
+
+    # # Testing database.
+    # test = db.PokemonDataBase()
+    # print(test.check_user_guess_to_database(4))
